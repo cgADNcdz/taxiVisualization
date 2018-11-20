@@ -1,0 +1,5 @@
+server.js: 后台服务，需要先运行该文件
+style.css: 手写的css
+javascript.js: js函数存放在其中
+interface.html:主界面显示,会引用javascript.js和style.css
+taxi.sql:导出的数据库，下载后自行将其导入数据库才能运行

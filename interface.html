@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>taxi实时系统</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
+	<link href="style.css" rel="stylesheet" type="text/css"/>
+	<script  type="text/javascript" src="javascript.js"></script>
+	
+</head>
+
+
+<body>
+<div id="root">
+	<div id="container"> <!--总的div-->
+		<!--左边：侧边栏-->
+		<div id="sidebar" style="display:none; margin-left:0px;"> <!--左边侧边栏-->
+			<div id="search">
+				<input type="text" id="input" value="14551">
+				<button onclick="clickQueryTaxi('map','startTime','endTime')" style="margin:1px;">查询</button>
+				<button onclick="showTaxiFlow2('map','lines-bus.json',1)">取消</button>
+			</div>
+			
+			
+
+			<div class="list_l menu_list" id="firstpane">
+				<h3 class="menu_head"  onclick="showHeatMap('map','startTime','endTime')"><b class="list_pic"></b>显示热力图</h3>
+
+				<h3 class="menu_head"><b class="list_pic"></b>当前车辆行车状态</h3>
+				<div class="menu_body" style="display:none">
+					<div id="lert"></div>
+					<div id="isempty"></div>
+					<div id="lamp"></div>
+					<div id="road"></div>
+				</div>
+
+				<h3 class="menu_head"  onclick="showSpeedField('showSpeedField','startTime','endTime','input')"><b class="list_pic"></b>当前车辆速度状态统计</h3>
+				<div class="menu_body" style="display:none">
+					<div class="echart_form" id="showSpeedField">
+							<!--<script>showLampStatus("lampStatus","startTime","endTime");</script> -->
+							<!--此处显示echart图表-->
+					</div>
+				</div>
+
+                <h3 class="menu_head"  onclick="showLampStatus('lampStatus','startTime','endTime')"><b class="list_pic"></b>全市车辆顶灯状态统计</h3>
+				<div class="menu_body" style="display:none">
+					<div class="echart_form" id="lampStatus">
+							<!--<script>showLampStatus("lampStatus","startTime","endTime");</script> -->
+							<!--此处显示echart图表-->
+					</div>
+				</div>
+
+				<h3 class="menu_head"  onclick="showCarryPassengerStatus('carryPassengerStatus','startTime','endTime')"><b class="list_pic"></b>全市车辆载客状态统计</h3>
+				<div class="menu_body" style="display:none">
+					<div class="echart_form" id="carryPassengerStatus">
+							<!--<script>showLampStatus("lampStatus","startTime","endTime");</script> -->
+							<!--此处显示echart图表-->
+					</div>
+				</div>
+				
+				
+				<!--<button  onclick="showHeatMap('map','startTime','endTime')">热力图</button>-->
+				
+
+			</div>
+
+			<div id="info">
+			    <div>起点周边查询</div><input type="text" id="input1" style="margin:1px;">
+				<div>终点周边查询</div><input type="text" id="input2" style="margin:1px;">
+			</div>
+            <div id="r-result1">起点目标信息:</div>
+			<div id="r-result2">终点目标信息:</div> 
+			
+			<script type="text/javascript">
+				$("#firstpane").find(".menu_head").each(function () {
+					$(this).click(function () {
+						if ($(this).next(".menu_body").is(":hidden")) {
+							$(this).find("b").addClass("current");
+							$(this).next(".menu_body").show();
+							$(this).siblings(".menu_head").each(function () {
+								$(this).find("b").removeClass("current");
+								$(this).next(".menu_body").hide();
+							});
+						}
+						else {
+							$(this).find("b").removeClass("current");
+							$(this).next(".menu_body").hide();
+						}
+		
+						//$(this).next("div.menu_body").slideToggle(300).siblings("div.menu_body").slideUp("slow");
+					});
+				});
+			</script>
+
+		</div>
+		<!--中间部分：侧边栏开关-->
+		<div style="height:100%; width:6px; padding:0;">
+			<div id="drawer" stype="right:0px;" onclick="sidebarAppearance('sidebar')"></div>
+		</div>
+
+		<!--右边部分:图与时间轴-->
+		<div style="height:100%; width:100%;">
+			<!--显示地图的区域-->
+			<div id="map" style="overflow: hidden; position: relative; z-index: 0; background-color: rgb(243, 241, 236); color: rgb(0, 0, 0); text-align: left;">				
+					<script type="text/javascript">
+	
+					showTaxiFlow2("map",'shanghai.json');
+
+					</script>
+			</div style="heigth:100%; padding:0;">
+			<!--时间轴-->
+			<div id="timeline">
+				<div style="height:100%;width:200px; float:left; ">显示时段</div>
+					<input type="time" id="startTime" step="1" value="11:00:00" style="float:left;height:100%;margin:2px;"/>
+				<div style="height:100%;width:150px;float:left;padding-left: 50px;">  到  </div>
+				<input type="time" id="endTime" step="1" value="11:01:00" style="float:left;height:100%;margin:2px;"/>
+				<script>
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
